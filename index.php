@@ -1,3 +1,9 @@
+<!-- Load dependencies in correct order -->
+<script src="https://cdn.jsdelivr.net/npm/@daybrush/utils@1.11.1/dist/utils.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moveable@0.53.0/dist/moveable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/selecto@1.23.2/dist/selecto.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@moveable/helper@0.27.0/dist/helper.umd.min.js"></script>
+
 
   <head>
     <meta charset="utf-8">
@@ -20,9 +26,6 @@
         class="container"
         data-croffle-ref="element$0"
     >
-        <script src="https://daybrush.com/moveable/helper/release/latest/dist/helper.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moveable/0.53.0/moveable.min.js" integrity="sha512-gFIuV9WCEJeWYkY1ZdJXugypot9ooEtwJf6U8In5JR6z5ZvV1xAvAQe9mQ7IYBXiF9ICXyiCeqgCJzqf64wh7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/selecto/1.26.3/selecto.min.js" integrity="sha512-LyYhmSJ2wilC9RjVXIC+Iq22nFVFTdTa5J/qGRJv42bmSEpHA0j1wQvdzu53MBG1Wuse7SP1BJp8lIzdBmsIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <link rel="stylesheet" href="index.css">
         <script type="module" src="index.js"></script>
 

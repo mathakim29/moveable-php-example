@@ -3,8 +3,7 @@ let targets = [];
 let moveableRef = null;
 let selectoRef = null;
 const cubes = [];
-
-for (let i = 0; i < 3; ++i) {
+for (let i = 0; i < 30; ++i) {
   cubes.push(i);
 }
 const setSelectedTargets = (nextTargetes) => {
@@ -12,21 +11,19 @@ const setSelectedTargets = (nextTargetes) => {
 
   setTargets(nextTargetes);
 };
-
 const element$0 = document.querySelector(`[data-croffle-ref="element$0"]`);
 const element$1 = document.querySelector(`[data-croffle-ref="element$1"]`);
 const element$2 = document.querySelector(`[data-croffle-ref="element$2"]`);
 const element$3 = document.querySelector(`[data-croffle-ref="element$3"]`);
-const element$4 = document.querySelector(`[data-croffle-ref="element$4"]`);
-
-element$3.innerHTML = cubes
-  .map((i) => {
-    return `<div x=${i} class="cube" autocomplete="off" contenteditable="true">${i}</div>`;
-  })
-  .join("\n");
 
 const containerWidth = element$3.getBoundingClientRect().width;
 const containerheight = element$3.getBoundingClientRect().height;
+
+element$3.innerHTML = cubes
+  .map((i) => {
+    return `<div class="cube">${i}</div>`;
+  })
+  .join("\n");
 
 moveableRef = new Moveable(element$3, {
   draggable: true,
@@ -61,7 +58,7 @@ moveableRef = new Moveable(element$3, {
 selectoRef = new Selecto({
   container: document.querySelector(`[data-croffle-ref="selectoRef"]`),
   dragContainer: window,
-  selectableTargets: [".selecto-area .cube"],
+  selectableTargets: [" .cube"],
   hitRate: 0,
   selectByClick: true,
   selectFromInside: false,
@@ -74,32 +71,24 @@ function setTargets(nextTargets) {
 }
 element$1.addEventListener("click", () => {
   const nextGroup = groupManager.group(targets, true);
-  if (nextGroup) setTargets(nextGroup);
+  if (nextGroup) {
+    setTargets(nextGroup);
+  }
 });
-
 element$2.addEventListener("click", () => {
-  const group = groupManager.groups.find((g) =>
-    g.targets().includes(targets[0]),
-  );
-  if (group) {
-    const nextTargets = groupManager.ungroup(group);
-    setTargets(nextTargets);
-  } else {
-    console.warn("No group found to ungroup");
+  const nextGroup = groupManager.ungroup(targets);
+  if (nextGroup) {
+    setTargets(nextGroup);
   }
 });
 moveableRef.on("drag", (e) => {
   e.target.style.transform = e.transform;
 });
-
-moveableRef.on("scale", (e) => {
-  e.target.style.transform = e.transform;
+moveableRef.on("renderGroup", (e) => {
+  e.events.forEach((ev) => {
+    ev.target.style.cssText += ev.cssText;
+  });
 });
-
-moveableRef.on("scaleGroup", (e) => {
-  e.target.style.transform = e.transform;
-});
-
 moveableRef.on("clickGroup", (e) => {
   if (!e.moveableTarget) {
     setSelectedTargets([]);
@@ -129,6 +118,7 @@ selectoRef.on("dragStart", (e) => {
   }
   e.data.startTargets = targets;
 });
+
 selectoRef.on("select", (e) => {
   const { startAdded, startRemoved, isDragStartEnd } = e;
 
@@ -161,14 +151,14 @@ selectoRef.on("selectEnd", (e) => {
   }
   e.currentTarget.setSelectedTargets(nextChilds.flatten());
   setSelectedTargets(nextChilds.targets());
+
+  e.stop();
 });
 
 const elements = selectoRef.getSelectableElements();
 
+groupManager.set([], elements);
+
 const observer = new ResizeObserver(() => {
   if (moveableRef) moveableRef.updateRect();
 });
-
-document.querySelectorAll(".cube").forEach((el) => observer.observe(el));
-
-groupManager.set([], elements);
