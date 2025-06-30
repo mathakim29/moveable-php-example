@@ -16,34 +16,41 @@ const element$1 = document.querySelector(`[data-croffle-ref="element$1"]`);
 const element$2 = document.querySelector(`[data-croffle-ref="element$2"]`);
 const element$3 = document.querySelector(`[data-croffle-ref="element$3"]`);
 
-const containerWidth = element$3.getBoundingClientRect().width;
-const containerheight = element$3.getBoundingClientRect().height;
+const bound = document.querySelector(`.user-canvas`);
+
+const containerWidth = bound.getBoundingClientRect().width;
+const containerHeight = bound.getBoundingClientRect().height;
 
 element$3.innerHTML = cubes
   .map((i) => {
-    return `<div class="cube">${i}</div>`;
+    return `<div class="absolute cube">${i}</div>`;
   })
   .join("\n");
 
-moveableRef = new Moveable(element$3, {
+moveableRef = new Moveable(bound, {
   draggable: true,
   scalable: true,
   rotatable: true,
   snappable: true,
-  snapCenter: true,
-  snapVertical: true,
-  snapHorizontal: true,
   snapElement: true,
   snapGap: true,
   keepRatio: true,
+  snapDirections: {
+    top: true,
+    bottom: true,
+    right: true,
+    left: true,
+    center: true,
+    middle: true,
+  },
   verticalGuidelines: [
     { pos: containerWidth / 2, className: "container-lines" },
   ],
   horizontalGuidelines: [
-    { pos: containerheight / 2, className: "container-lines" },
+    { pos: containerHeight / 2, className: "container-lines" },
   ],
-  elementGuidelines: [...document.querySelectorAll(".cube"), element$3],
-  bounds: element$3,
+  elementGuidelines: [...document.querySelectorAll(".cube"), bound],
+  bounds: bound,
 });
 
 // locked objects test

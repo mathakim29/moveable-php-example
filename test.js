@@ -20,6 +20,8 @@ const element$1 = document.querySelector(`[data-croffle-ref="element$1"]`);
 const element$2 = document.querySelector(`[data-croffle-ref="element$2"]`);
 const element$4 = document.querySelector(`[data-croffle-ref="element$4"]`);
 
+const bound = document.querySelector(`container`);
+
 element$3.innerHTML = cubes
   .map((i) => {
     return `<div x=${i} class="cube" autocomplete="off" contenteditable="true">${i}</div>`;
@@ -46,8 +48,8 @@ moveableRef = new Moveable(element$3, {
   horizontalGuidelines: [
     { pos: containerheight / 2, className: "container-lines" },
   ],
-  elementGuidelines: [...document.querySelectorAll(".cube"), element$3],
-  bounds: element$3,
+  elementGuidelines: [...document.querySelectorAll(".cube"), bound],
+  bounds: bound,
 });
 
 // locked objects test
