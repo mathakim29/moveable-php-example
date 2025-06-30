@@ -73,7 +73,6 @@ body:has(.margin) {
 
 .container {
     position: relative;
-    margin-top: 50px;
 }
 
 .will-change-container {
