@@ -1,3 +1,5 @@
+const element$3 = document.querySelector(`[data-croffle-ref="element$3"]`);
+
 let groupManager = new MoveableHelper.GroupManager([]);
 let targets = [];
 let moveableRef = null;
@@ -16,7 +18,6 @@ const setSelectedTargets = (nextTargetes) => {
 const element$0 = document.querySelector(`[data-croffle-ref="element$0"]`);
 const element$1 = document.querySelector(`[data-croffle-ref="element$1"]`);
 const element$2 = document.querySelector(`[data-croffle-ref="element$2"]`);
-const element$3 = document.querySelector(`[data-croffle-ref="element$3"]`);
 const element$4 = document.querySelector(`[data-croffle-ref="element$4"]`);
 
 element$3.innerHTML = cubes
@@ -172,3 +173,8 @@ const observer = new ResizeObserver(() => {
 document.querySelectorAll(".cube").forEach((el) => observer.observe(el));
 
 groupManager.set([], elements);
+
+element$5.addEventListener("click", () => {
+  moveableRef?.targets = [];
+  selectoRef?.setSelectedTargets([]);
+});
